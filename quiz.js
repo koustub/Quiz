@@ -106,5 +106,6 @@ optn.addEventListener('click',function(event)
     checkRun();
     
 });
+console.log(`${score}`);
 
 
