@@ -1,19 +1,30 @@
+
 let questions =
 [
     {id:1,
-    question:'what is your name?',
-    answer:'Apple',
-    options: ['Apple','banana','jackfruit','pineapple' ]
+    question:'What does WWW stand for?',
+    answer:'World Wide Web',
+    options: ['World Worm Web','World Wide Web','World Word Web','None of the above']
     },
     {id:2,
-    question:'where do you live?',
-    answer:'banana',
-    options:['Apple','banana','jackfruit','pineapple' ]
+    question:'Which of the following is used to save the frequently visited web sites?',
+    answer:'Favorites List',
+    options:['Frequent List','Favorites List','Explorer List','None of the above' ]
     },  
     {id:3,
-    question:'which pet do you have?',
-    answer:'cat',
-    options:['Apple','cat','jackfruit','pineapple' ]
+    question:'Which of the following is a presentation program??',
+    answer:'Ms-Power Point',
+    options:[ 'MS-Word','Ms-Excel','Ms-Power Point','Ms- Access']
+    },
+    {id:4,
+        question:'Which of the following is a storage device?',
+        answer:'All of the above',
+        options:['Hard Disk','USB Disk','Floppy Disk','All of the above']
+    },
+    {id:5,
+        question:'Which of the following software is used to view web pages?',
+        answer:'Web Browser',
+        options:[ 'Web Browser','Internet Browser','Page Browser','All of the above']
     } 
 ];
 let count = 0;
@@ -27,12 +38,13 @@ let userAnswer = "";
 printQuestion(count);
 startTimer();
 function printQuestion(count){
-    ques.innerHTML =`<h2> Q:${count + 1}.${questions[count].question}<h2>`;
+    ques.innerHTML =`<h2 id='quesHead'> Q${count + 1}.${questions[count].question}<h2>`;
     optns.innerHTML =`<ul>
     <li id="1">${questions[count].options[0]}</li> 
     <li id="2">${questions[count].options[1]}</li> 
     <li id="3">${questions[count].options[2]}</li> 
     <li id="4">${questions[count].options[3]}</li> </ul>`;
+    
 }
 function checkAnswer(){
     
@@ -81,9 +93,6 @@ function checkRun(){
     if (count == questions.length) 
     {
         console.log('end of your quiz');
-        // console.log('you have entered another room');
-        // let fRes = document.getElementById("userResult");
-        // fRes.innerHTML = `<h2> your Score is ${score}`;
         location.href = "end.html";
         return;
     }
@@ -97,4 +106,5 @@ optn.addEventListener('click',function(event)
     checkRun();
     
 });
+
 
