@@ -107,5 +107,15 @@ optn.addEventListener('click',function(event)
     
 });
 console.log(`${score}`);
+submit.addEventListener(onclick,function(){
+    let uName =  document.getElementById('uname');
+    var userInfo = {
+        username: uName.value,
+        userScore: score
+    }
 
-
+    localStorage.setItem("userInfo").JSON.stringify(userInfo);
+    var user = localStorage.getItem("userInfo");
+    user = JSON.parse(user);
+    console.log(`${user}`);
+});
