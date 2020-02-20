@@ -9,17 +9,55 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">  
+    <style>
+        #container{
+            display : flex;
+            flex-direction: row;
+            justify-content: space-around;
+
+        }
+    </style>
 </head>
 <body>
-    
+        <div class="header">
+                <button type="button" id="buttonForHighScores"  style="color: white;background-color: black; font-size:large; text-align: center;">HIGH-SCORES</button>
+            </div>
         <div id="firstPage">
             <h1>Basic Computer Knowledge Quiz</h1>
             <h2>Test your knowledge to answer simply Questions </h2>
             <button type="button" onclick="location.href='question.html'">start quiz </button>
         </div>
-    
+        <div id="headingForhighscore">
 
-    <script type="text/javascript" src="quiz.js"></script>
- 
+        </div>
+        <div class="row" id='container'>
+                <div class="col-6" id="hname">
+                   
+                </div>
+                <div class="col-6" id="hscore">
+                    
+                </div>
+        </div>
+        <script>
+        userQRI = [];
+        var hhs = document.getElementById('headingForhighscore');
+        document.getElementById('buttonForHighScores').addEventListener('click',function(){
+        
+        hhs.innerHTML='<h2>High Scores</h2>';
+        if(localStorage.getItem('userQRI') != null){
+            var userQRI = JSON.parse(localStorage.getItem('userQRI'));
+            userQRI.sort(function (a, b) {
+                    return b.uqscore - a.uqscore
+                })
+            for (var i=0;i<userQRI.length;i++)
+            { 
+                
+                document.getElementById('hname').innerHTML += `<h2 id='hname'>${userQRI[i].uqname}</h2>`;
+                document.getElementById('hscore').innerHTML += `<h2 id='hscore'>${userQRI[i].uqscore}</h2>`
+            }
+        }
+    });
+        </script>
+
 </body>
 </html>

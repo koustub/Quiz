@@ -34,10 +34,32 @@ let optn = document.getElementById("optns");
 let interval;
 let countTimer = 30;
 let userAnswer = "";
-
-printQuestion(count);
+ window.onload= printQuestion();
 startTimer();
-function printQuestion(count){
+
+optn.addEventListener('click',function(event)
+{
+    let btn_id = event.target.id;
+    userAnswer = document.getElementById(`${btn_id}`).innerHTML;
+    checkAnswer();
+    checkRun();
+    
+});
+
+// submit.addEventListener(onclick,function(){
+//     let uName =  document.getElementById('uname');
+//     var userInfo = {
+//         username: uName.value,
+//         userScore: score
+//     }
+
+//     localStorage.setItem("userInfo").JSON.stringify(userInfo);
+//     var user = localStorage.getItem("userInfo");
+//     user = JSON.parse(user);
+//     console.log(`${user}`);
+// });
+
+function printQuestion(){
     ques.innerHTML =`<h2 id='quesHead'> Q${count + 1}.${questions[count].question}<h2>`;
     optns.innerHTML =`<ul>
     <li id="1">${questions[count].options[0]}</li> 
@@ -77,7 +99,6 @@ function checkAnswer(){
     }
     console.log(`your score ${score}`);
 }
-
 function startTimer() {
     qt = document.getElementById('quizTime');
     interval = setInterval(function () {
@@ -85,37 +106,23 @@ function startTimer() {
         countTimer--;
         if (countTimer <= 0) {
             clearInterval(interval);
+            location.href = 'end.html';
         }
     }, 1000);
 }
 function checkRun(){
     count++;
+    console.log(`${count}`);
     if (count == questions.length) 
     {
         console.log('end of your quiz');
         location.href = "end.html";
+        var userScore ={
+            uScore : score
+        }
+        localStorage.setItem("userScore",JSON.stringify(userScore));
         return;
     }
     printQuestion(count);
-}
-optn.addEventListener('click',function(event)
-{
-    let btn_id = event.target.id;
-    userAnswer = document.getElementById(`${btn_id}`).innerHTML;
-    checkAnswer();
-    checkRun();
-    
-});
-console.log(`${score}`);
-submit.addEventListener(onclick,function(){
-    let uName =  document.getElementById('uname');
-    var userInfo = {
-        username: uName.value,
-        userScore: score
-    }
 
-    localStorage.setItem("userInfo").JSON.stringify(userInfo);
-    var user = localStorage.getItem("userInfo");
-    user = JSON.parse(user);
-    console.log(`${user}`);
-});
+}

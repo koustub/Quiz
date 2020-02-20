@@ -9,16 +9,111 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">    
+    <style>
+        #container{
+            display : flex;
+            flex-direction: row;
+            justify-content: space-around;
+
+        }
+        .header{
+            background-color: black;
+            color: white;
+            height: 80px;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start; 
+        }
+       
+
+    </style>
 </head>
 <body>
+    <div class="header">
+        <button type="button" id="buttonForHighScores"  style="color: white;background-color: black; font-size:large; text-align: center;">HIGH-SCORES</button>
+    </div>
     <h2 id="done">All Done ..!</h2>
     <div id="score"></div>
     <div id="userResult">
         <input type="text" name="playerName" id="uname">
-        <button type="submit" id="submit">Submit</button>
+        <button type="submit" id="smt">Submit</button>
+        <button type='button' onclick="location.href='index.html'">Play Again</button>
     </div>
+    <div id="headingForhighscore">
 
-    <script type="text/javascript" src="quiz.js"></script>
+        </div>
+    <div class="row" id='container'>
+        <div class="col-6" id="hname">
+           
+        </div>
+        <div class="col-6" id="hscore">
+            
+        </div>
+    </div>
+    <script type="text/javascript">
+    var userQRI = [];
+    if(localStorage.getItem('userScore') !== null)
+    {
+    var pScore = localStorage.getItem('userScore');
+    pScore = JSON.parse(pScore);
+    console.log('score is' + pScore.uScore);
+    var userQuizScore = pScore.uScore;
+    }
+
+    sc= document.getElementById('score');
+    sc.innerHTML = `<h2>your score is ${userQuizScore}</h2> `;
+    var qsmt= document.getElementById('smt');
+    userQuizName = document.getElementById('uname');
+    qsmt.addEventListener('click',function(){
+      
+        var uqname = userQuizName.value;
+        var uqscore = userQuizScore;
+        if(window.localStorage.length < 1 ){
+            userQRI.push({uqname,uqscore});
+            localStorage.setItem('userQRI',JSON.stringify(userQRI));
+            var userQRINew1 = JSON.parse(localStorage.getItem('userQRI'));
+            document.getElementById('hname').innerHTML += `<h2 id='hname'>${userQRINew1[i].uqname}</h2>`;
+            document.getElementById('hscore').innerHTML += `<h2 id='hscore'>${userQRINew1[i].uqscore}</h2>`
+        }
+        else{ 
+    var userQRIval=[] ;
+    if(localStorage.getItem('userQRI') !== null){
+    userQRIval = JSON.parse(localStorage.getItem('userQRI')); 
+    userQRIval.push({uqname,uqscore});
+    localStorage.setItem("userQRI",JSON.stringify(userQRIval));
+}
+    else
+    {
+        userQRIval.push({uqname,uqscore});
+        localStorage.setItem("userQRI",JSON.stringify(userQRIval));
+    }
+        var userQRINew = JSON.parse(localStorage.getItem('userQRI')); 
+       for (var i=0;i<userQRINew.length;i++)
+        {  
+            document.getElementById('hname').innerHTML += `<h2 id='hname'>${userQRINew[i].uqname}</h2>`;
+             document.getElementById('hscore').innerHTML += `<h2 id='hscore'>${userQRINew[i].uqscore}</h2>`
+      }
+}
+    });
+ 
+    document.getElementById('buttonForHighScores').addEventListener('click',function(){
+        document.getElementById('hname').innerHTML = "";
+        document.getElementById('hscore').innerHTML= "";
+        document.getElementById('headingForhighscore').innerHTML = '<h2>High-Scores</h2>';
+        if(localStorage.getItem('userQRI') != null){
+            var userQRI = JSON.parse(localStorage.getItem('userQRI'));
+            userQRI.sort(function (a, b) {
+                    return b.uqscore - a.uqscore
+                })
+            for (var i=0;i<userQRI.length;i++)
+            { 
+                
+                document.getElementById('hname').innerHTML += `<h2 id='hname'>${userQRI[i].uqname}</h2>`;
+                document.getElementById('hscore').innerHTML += `<h2 id='hscore'>${userQRI[i].uqscore}</h2>`
+            }
+        }
+    });
+     </script>
  
 </body>
 </html>
